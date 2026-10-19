@@ -1,1395 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirreza — AI Engineer</title>
-    <style>
-        :root {
-            --bg: #0a0a0f;
-            --bg-card: #12121a;
-            --bg-card-hover: #1a1a2e;
-            --accent: #6c63ff;
-            --accent-glow: rgba(108, 99, 255, 0.3);
-            --text: #e4e4e7;
-            --text-muted: #8b8b9e;
-            --border: #2a2a3e;
-            --gradient-1: linear-gradient(135deg, #6c63ff, #3b82f6);
-            --gradient-2: linear-gradient(135deg, #f472b6, #6c63ff);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(108,99,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(59,130,246,0.06) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(244,114,182,0.05) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 0;
-            transition: all 0.3s;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links { display: flex; gap: 28px; align-items: center; }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--accent); }
-
-        .admin-link {
-            background: var(--gradient-1);
-            color: white !important;
-            -webkit-text-fill-color: white !important;
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-size: 0.85rem !important;
-        }
-        .admin-link:hover { opacity: 0.9; }
-
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-        }
-
-        .hero-content { max-width: 700px; }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(108,99,255,0.1);
-            border: 1px solid rgba(108,99,255,0.3);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 24px;
-        }
-
-        .hero-badge .dot {
-            width: 8px; height: 8px;
-            background: #4ade80;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 12px;
-        }
-
-        .hero h1 span {
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 32px;
-            max-width: 560px;
-        }
-
-        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 28px;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: var(--gradient-1);
-            color: white;
-            box-shadow: 0 4px 20px var(--accent-glow);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-
-        /* Sections */
-        section {
-            padding: 100px 0;
-        }
-
-        .section-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 48px;
-        }
-
-        /* About */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: start;
-        }
-
-        .about-text { color: var(--text-muted); font-size: 1.05rem; }
-        .about-text p { margin-bottom: 16px; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 24px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-
-        .skill-category {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s;
-        }
-        .skill-category:hover { border-color: var(--accent); }
-
-        .skill-category h3 {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .skill-category h3 .icon {
-            width: 36px; height: 36px;
-            background: rgba(108,99,255,0.15);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-        .skill-tag {
-            background: rgba(108,99,255,0.1);
-            border: 1px solid rgba(108,99,255,0.2);
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: var(--text);
-            transition: all 0.2s;
-        }
-        .skill-tag:hover { background: rgba(108,99,255,0.2); }
-
-        /* Experience */
-        .timeline { position: relative; padding-left: 32px; }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 8px; bottom: 8px;
-            width: 2px;
-            background: var(--border);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            padding-left: 24px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -37px; top: 8px;
-            width: 12px; height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            border: 3px solid var(--bg);
-        }
-
-        .timeline-date {
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .timeline-item h3 { font-size: 1.15rem; margin-bottom: 4px; }
-        .timeline-item .company { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 10px; }
-        .timeline-item p { color: var(--text-muted); font-size: 0.9rem; }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        .project-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
-
-        .project-carousel {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: var(--bg-card-hover);
-        }
-
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.4s ease;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 2.5rem;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .carousel-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(10,10,15,0.7);
-            border: 1px solid var(--border);
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            z-index: 2;
-        }
-        .carousel-btn:hover { background: var(--accent); border-color: var(--accent); }
-        .carousel-btn.prev { left: 8px; }
-        .carousel-btn.next { right: 8px; }
-        .carousel-btn.hidden { display: none; }
-
-        .carousel-dots {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 6px;
-            z-index: 2;
-        }
-
-        .carousel-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.4);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .carousel-dot.active { background: white; transform: scale(1.2); }
-
-        .project-body { padding: 24px; }
-        .project-body h3 { font-size: 1.15rem; margin-bottom: 8px; }
-        .project-body p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
-
-        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-        .project-tag {
-            background: rgba(108,99,255,0.1);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            color: var(--accent);
-        }
-
-        .project-links { display: flex; gap: 12px; }
-        .project-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .project-links a:hover { color: var(--accent); }
-
-        .no-projects {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            grid-column: 1 / -1;
-        }
-
-        /* Contact */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-content p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.1rem; }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 14px 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 32px 0;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* ADMIN PANEL */
-        .admin-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10,10,15,0.95);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            overflow-y: auto;
-        }
-
-        .admin-overlay.active { display: block; }
-
-        .admin-panel {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 24px;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .admin-header h2 {
-            font-size: 1.8rem;
-            background: var(--gradient-1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .admin-close {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-        .admin-close:hover { border-color: #ef4444; color: #ef4444; }
-
-        .login-form {
-            max-width: 400px;
-            margin: 100px auto;
-            text-align: center;
-        }
-
-        .login-form h2 {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-        }
-
-        .login-form p { color: var(--text-muted); margin-bottom: 32px; }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 16px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text);
-            font-size: 0.95rem;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-group textarea { resize: vertical; min-height: 100px; }
-
-        /* Upload boxes */
-        .upload-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 14px;
-        }
-
-        .upload-box {
-            aspect-ratio: 16/10;
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .upload-box:hover { border-color: var(--accent); }
-
-        .upload-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            color: var(--text-muted);
-        }
-
-        .upload-icon { font-size: 1.5rem; }
-        .upload-text { font-size: 0.75rem; }
-
-        .upload-preview {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .upload-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .upload-remove {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 24px;
-            height: 24px;
-            background: rgba(239,68,68,0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .upload-remove:hover { background: #ef4444; transform: scale(1.1); }
-
-        .admin-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 32px;
-        }
-
-        .admin-section h3 {
-            font-size: 1.2rem;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .admin-project-list { margin-top: 24px; }
-
-        .admin-project-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 12px;
-            transition: all 0.2s;
-        }
-        .admin-project-item:hover { border-color: var(--accent); }
-
-        .admin-project-info h4 { font-size: 1rem; margin-bottom: 4px; }
-        .admin-project-info p { font-size: 0.8rem; color: var(--text-muted); }
-
-        .admin-project-actions { display: flex; gap: 8px; }
-
-        .btn-small {
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-edit { background: rgba(108,99,255,0.15); color: var(--accent); }
-        .btn-edit:hover { background: rgba(108,99,255,0.3); }
-        .btn-delete { background: rgba(239,68,68,0.15); color: #ef4444; }
-        .btn-delete:hover { background: rgba(239,68,68,0.3); }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 14px;
-            background: var(--gradient-1);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--accent-glow); }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--bg-card);
-            border: 1px solid var(--accent);
-            color: var(--text);
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            z-index: 99999;
-            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.5s forwards;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-        }
-
-        @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes fadeOut { to { opacity: 0; transform: translateY(10px); } }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .nav-links { gap: 16px; }
-            .nav-links a:not(.admin-link) { display: none; }
-            section { padding: 60px 0; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir reza abbasi — Portfolio & Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-grid"></div>
+<!-- Edit Banner -->
+<div id="editBanner">
+  <i class="fa-solid fa-pen-to-square"></i> Edit Mode is ON — Click any text to edit it. Changes save automatically.
+  <button onclick="toggleEdit(false)">Done Editing</button>
+</div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="logo">Amirreza</div>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact">Contact</a>
-                <a href="#" class="admin-link" onclick="openAdmin(event)">Admin</a>
-            </div>
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">A</span>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme"><i class="fa-regular fa-moon"></i></button>
+      <button class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-gradient"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="eyebrow">
+        <span class="dot"></span>
+        <span data-edit="availability">Available for new opportunities — Q4 2026</span>
+      </div>
+      <h1>
+        <span class="h1-line serif" data-edit="heroName1"> Amir reza abbasi</span>
+        <span class="h1-line muted" data-edit="heroTitle">AI engineer &<br>machine vision</span>
+      </h1>
+      <p class="hero-desc" data-edit="heroDesc">
+        I build AI-powered applications that combine practical problem-solving with modern technology. Passionate about local AI, computer vision, and intelligent systems, I turn ideas into functional digital solutions.
+      </p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary large"><i class="fa-regular fa-paper-plane"></i> Let's talk</a>
+        <a href="#projects" class="btn-secondary large"><i class="fa-solid fa-arrow-right"></i> View work</a>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <strong>1+</strong>
+          <span>Years<br>Experience</span>
         </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    Open to opportunities
-                </div>
-                <h1>Hi, I'm <span>Amirreza</span></h1>
-                <p class="subtitle">AI Engineer focused on Computer Vision, Local LLMs, and building privacy-first AI systems that run on-device.</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
-                    <a href="#contact" class="btn btn-secondary">Get in Touch</a>
-                </div>
-            </div>
+        <div class="meta-item">
+          <strong>10+</strong>
+          <span>Projects<br>Shipped</span>
         </div>
-    </section>
-
-    <!-- About -->
-    <section id="about">
-        <div class="container">
-            <p class="section-label">About Me</p>
-            <h2 class="section-title">Building the future of private AI</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I'm an AI Engineer passionate about making intelligent systems accessible, efficient, and privacy-preserving. My work spans computer vision, local large language models, and edge AI deployment.</p>
-                    <p>I believe the future of AI isn't just in the cloud — it's on-device, in your hands, respecting your data. I build systems that prove you don't need to sacrifice privacy for performance.</p>
-                    <p>When I'm not training models or optimizing inference pipelines, you'll find me exploring new architectures, contributing to open-source, or writing about AI engineering.</p>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">3+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Projects Built</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Models Deployed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Cups of Coffee</div>
-                    </div>
-                </div>
-            </div>
+        <div class="meta-item">
+          <strong>5</strong>
+          <span>Documents &<br>Features</span>
         </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-        <div class="container">
-            <p class="section-label">Skills</p>
-            <h2 class="section-title">Technologies I work with</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><span class="icon">👁️</span> Computer Vision</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">YOLO</span>
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">ONNX</span>
-                        <span class="skill-tag">TensorRT</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="icon">🧠</span> LLMs & NLP</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">llama.cpp</span>
-                        <span class="skill-tag">Ollama</span>
-                        <span class="skill-tag">vLLM</span>
-                        <span class="skill-tag">Hugging Face</span>
-                        <span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">RAG</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="icon">⚡</span> Engineering</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">CUDA</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Git</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><span class="icon">🔒</span> Edge & Privacy</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">ONNX Runtime</span>
-                        <span class="skill-tag">TFLite</span>
-                        <span class="skill-tag">Quantization</span>
-                        <span class="skill-tag">Pruning</span>
-                        <span class="skill-tag">Federated Learning</span>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="profile-card">
+        <div class="profile-img-wrap">
+          <div class="profile-img" id="profileImg">
+            <img src="images/profile.jpg" alt="My profile picture">
+          </div>
+            <span>AM</span>
+          </div>
+          </label>
+          <div class="status-badge">
+            <span class="pulse"></span> Open to work
+          </div>
         </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience">
-        <div class="container">
-            <p class="section-label">Experience</p>
-            <h2 class="section-title">Where I've worked</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">2024 — Present</div>
-                    <h3>AI Engineer</h3>
-                    <div class="company">Freelance / Independent</div>
-                    <p>Building and deploying local LLM solutions and computer vision systems for privacy-sensitive applications. Optimizing inference pipelines for edge devices.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2022 — 2024</div>
-                    <h3>Machine Learning Engineer</h3>
-                    <div class="company">Tech Company</div>
-                    <p>Developed real-time object detection models, built data pipelines, and deployed ML models to production with 99.5% uptime.</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2021 — 2022</div>
-                    <h3>Research Assistant</h3>
-                    <div class="company">University Lab</div>
-                    <p>Research in efficient neural network architectures for mobile deployment. Published work on model compression techniques.</p>
-                </div>
-            </div>
+        <div class="profile-info">
+          <h3 data-edit="profileName">Amir reza abbasi</h3>
+          <p class="role" data-edit="profileRole">AI engineer & machine vision</p>
+          <p class="location" data-edit="profileLocation"><i class="fa-solid fa-location-dot"></i> Alborz, karaj</p>
+          <div class="profile-links">
+            <a href="#" class="plink" data-edit-link><i class="fa-regular fa-envelope"></i> <span data-edit="email">amirreza.abbasi.ai@gmail.com</span></a>
+            <a href="#" class="plink" data-edit-link><i class="fa-brands fa-linkedin-in"></i> <span data-edit="linkedin">https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android</span></a>
+            <a href="#" class="plink" data-edit-link><i class="fa-brands fa-github"></i> <span data-edit="github">https://github.com/amirrezaabbasiai-svg</span></a>
+            <a href="#" class="plink" data-edit-link><i class="fa-solid fa-globe"></i> <span data-edit="website">alexmorgan.design</span></a>
+          </div>
+          <div class="profile-actions">
+            <a href="#" class="btn-primary full" onclick="window.print();return false;"><i class="fa-solid fa-file-arrow-down"></i> Download Resume PDF</a>
+          </div>
         </div>
-    </section>
+      </div>
+      <!-- floating cards -->
+      <div class="float-card fc1">
+        <i class="fa-solid fa-code"></i>
+        <div><strong>Clean Code</strong><span>Python • TensorFlow • SKlearn</span></div>
+      </div>
+      <div class="float-card fc2">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <div><strong>LLM</strong><span>Ollama • TTS • Local</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Projects -->
-    <section id="projects">
-        <div class="container">
-            <p class="section-label">Projects</p>
-            <h2 class="section-title">Things I've built</h2>
-            <div class="projects-grid" id="projects-grid">
-                <!-- Projects will be dynamically loaded here -->
-            </div>
+<!-- Slogan / Thanks to God -->
+<section class="slogan-section">
+  <div class="container">
+    <div class="slogan-card">
+      <div class="slogan-ornament">
+        <span class="ornament-line"></span>
+        <i class="fa-solid fa-star-and-crescent"></i>
+        <span class="ornament-line"></span>
+      </div>
+      <h2 class="arabic-slogan" dir="rtl" lang="ar" data-edit="slogan">الحمد الله الذی جعل اعدانا من الحمقا</h2>
+      <p class="slogan-divider">—</p>
+      <p class="slogan-translation" data-edit="sloganEn">Praise be to God who made our enemies from among the foolish</p>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">— About Me</span>
+      <h2 data-edit="aboutTitle">Designer who codes. Engineer who cares about pixels.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="lead" data-edit="aboutLead">I'm an AI-focused developer passionate about building intelligent applications that solve real-world problems. I work on projects ranging from AI-powered chatbots and locally hosted language models to computer vision and educational platforms.</p>
+        <p data-edit="aboutP1">My focus is on turning ideas into working solutions, exploring modern AI technologies, and building applications that are practical, accessible, and useful.</p>
+        <p data-edit="aboutP2">I enjoy working at the intersection of AI and software development, where experimentation meets engineering. I believe the best way to learn is to build, understand how things work, and continuously improve what you create.</p>
+        <div class="about-highlights">
+          <div class="highlight"><i class="fa-solid fa-bolt"></i><div><strong data-edit="h1t">Obsessed with craft</strong><p data-edit="h1d">Every interaction, every 8px matters.</p></div></div>
+          <div class="highlight"><i class="fa-solid fa-users"></i><div><strong data-edit="h2t">Team first</strong><p data-edit="h2d">Mentored 12+ designers & engineers.</p></div></div>
+          <div class="highlight"><i class="fa-solid fa-chart-line"></i><div><strong data-edit="h3t">Business aware</strong><p data-edit="h3d">Design that moves metrics, not just Dribbble likes.</p></div></div>
         </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <p class="section-label">Contact</p>
-                <h2 class="section-title">Let's work together</h2>
-                <p>Have a project in mind, or want to discuss AI engineering? I'd love to hear from you.</p>
-                <div class="contact-links">
-                    <a href="/cdn-cgi/l/email-protection#07666a6e7575627d662966656566746e29666e47606a666e6b2964686a" class="contact-link">📧 Email</a>
-                    <a href="https://github.com/amirrezaabbasiai-svg/" target="_blank" class="contact-link">💻 GitHub</a>
-                    <a href="http://t.me/AmirrezaabbasiAI" target="_blank" class="contact-link">✈️ Telegram</a>
-                    <a href="tel:09164448197" class="contact-link">📞 09164448197</a>
-                    <a href="tel:09034448197" class="contact-link">📞 09034448197</a>
-                </div>
-            </div>
+      </div>
+      <div class="about-side">
+        <div class="info-card">
+          <h4><i class="fa-solid fa-briefcase"></i> Quick Facts</h4>
+          <ul>
+            <li><span>Location</span><strong data-edit="qfLocation">Alborz , karaj</strong></li>
+            <li><span>Experience</span><strong data-edit="qfExp">1+ Years</strong></li>
+            <li><span>Focus</span><strong data-edit="qfFocus">AI Development / LLM</strong></li>
+            <li><span>Languages</span><strong data-edit="qfLang">English, Persian</strong></li>
+          </ul>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>© 2025 Amirreza. Built with passion & privacy in mind.</p>
+        <div class="info-card accent">
+          <h4>Currently</h4>
+          <p data-edit="currently">Exploring new senior product design / design engineering roles. Interested in AI tools, devtools, and early-stage teams.</p>
+          <a href="#contact" class="link-arrow">Get in touch <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Admin Overlay -->
-    <div class="admin-overlay" id="admin-overlay">
-        <!-- Login Screen -->
-        <div class="login-form" id="login-screen">
-            <h2>🔐 Admin Panel</h2>
-            <p>Enter your password to manage projects</p>
-            <div class="form-group">
-                <input type="password" id="admin-password" placeholder="Enter password..." onkeydown="if(event.key==='Enter')attemptLogin()">
-            </div>
-            <button class="btn-submit" onclick="attemptLogin()">Login</button>
-            <br><br>
-            <button class="admin-close" onclick="closeAdmin()">← Back to site</button>
-        </div>
-
-        <!-- Admin Dashboard -->
-        <div class="admin-panel" id="admin-dashboard" style="display:none;">
-            <div class="admin-header">
-                <h2>⚙️ Project Manager</h2>
-                <button class="admin-close" onclick="closeAdmin()">✕ Close</button>
-            </div>
-
-            <!-- Add/Edit Project Form -->
-            <div class="admin-section">
-                <h3>➕ <span id="form-title">Add New Project</span></h3>
-                <form id="project-form" onsubmit="saveProject(event)">
-                    <input type="hidden" id="edit-id" value="">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Title *</label>
-                            <input type="text" id="proj-title" placeholder="e.g., VisionGuard" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Tags (comma separated)</label>
-                            <input type="text" id="proj-tags" placeholder="e.g., YOLO, OpenCV, Python">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Description *</label>
-                        <textarea id="proj-desc" placeholder="Brief description of the project..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Images (upload up to 3)</label>
-                        <div class="upload-grid" id="upload-grid">
-                            <div class="upload-box" id="upload-box-0">
-                                <input type="file" id="proj-file1" accept="image/*" onchange="previewUpload(this, 0)" hidden>
-                                <div class="upload-placeholder" onclick="document.getElementById('proj-file1').click()">
-                                    <span class="upload-icon">📷</span>
-                                    <span class="upload-text">Click to upload</span>
-                                </div>
-                                <div class="upload-preview" style="display:none;">
-                                    <img id="preview-img-0" src="" alt="Preview">
-                                    <button class="upload-remove" onclick="removeUpload(0)" type="button">✕</button>
-                                </div>
-                            </div>
-                            <div class="upload-box" id="upload-box-1">
-                                <input type="file" id="proj-file2" accept="image/*" onchange="previewUpload(this, 1)" hidden>
-                                <div class="upload-placeholder" onclick="document.getElementById('proj-file2').click()">
-                                    <span class="upload-icon">📷</span>
-                                    <span class="upload-text">Click to upload</span>
-                                </div>
-                                <div class="upload-preview" style="display:none;">
-                                    <img id="preview-img-1" src="" alt="Preview">
-                                    <button class="upload-remove" onclick="removeUpload(1)" type="button">✕</button>
-                                </div>
-                            </div>
-                            <div class="upload-box" id="upload-box-2">
-                                <input type="file" id="proj-file3" accept="image/*" onchange="previewUpload(this, 2)" hidden>
-                                <div class="upload-placeholder" onclick="document.getElementById('proj-file3').click()">
-                                    <span class="upload-icon">📷</span>
-                                    <span class="upload-text">Click to upload</span>
-                                </div>
-                                <div class="upload-preview" style="display:none;">
-                                    <img id="preview-img-2" src="" alt="Preview">
-                                    <button class="upload-remove" onclick="removeUpload(2)" type="button">✕</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Project Link (optional)</label>
-                            <input type="url" id="proj-link" placeholder="https://...">
-                        </div>
-                        <div class="form-group">
-                            <label>GitHub / Source Link (optional)</label>
-                            <input type="url" id="proj-source" placeholder="https://github.com/...">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-submit" id="submit-btn">Add Project</button>
-                </form>
-            </div>
-
-            <!-- Existing Projects -->
-            <div class="admin-section">
-                <h3>📁 Existing Projects (<span id="project-count">0</span>)</h3>
-                <div class="admin-project-list" id="admin-project-list">
-                    <!-- Projects listed here -->
-                </div>
-            </div>
-        </div>
+<!-- Experience -->
+<section id="experience" class="section alt">
+  <div class="container">
+    <div class="section-header row">
+      <div>
+        <span class="section-kicker">— Experience</span>
+        <h2>Where I've made impact</h2>
+      </div>
+      <a href="#" class="btn-secondary" onclick="window.print();return false;"><i class="fa-regular fa-file-lines"></i> Full CV as PDF</a>
     </div>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // ============ CONFIG ============
-        const ADMIN_PASSWORD = 'admin123';
-        const STORAGE_KEY = 'amirreza_projects';
+    <div class="timeline">
+      <!-- Job 1 -->
+      <div class="tl-item">
+        <div class="tl-date">
+          <span data-edit="job1Date">2025 — 2026t</span>
+          <span class="badge current">Current</span>
+        </div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="">
+            <div>
+              <h3 data-edit="job1Title">AI-Powered Educational Platform</h3>
+            </div>
+          </div>
+          <p data-edit="job1Desc">A learning platform designed to support students and teachers with AI-powered educational tools, student performance tracking, and exam-related workflows.</p>
+          <ul data-edit="job1Bullets">
+          </ul>
+          <div class="tags">
+            <span>Python</span><span>AI/LLM</span><span>Web Develpment</span><span>Leadership</span>
+          </div>
+        </div>
+      </div>
 
-        // ============ PROJECTS DATA ============
-        function getProjects() {
-            const stored = localStorage.getItem(STORAGE_KEY);
-            if (stored) return JSON.parse(stored);
-            // Default sample projects
-            const defaults = [
-                {
-                    id: '1',
-                    title: 'LocalVision — On-Device Object Detection',
-                    description: 'A privacy-first object detection system that runs entirely on-device using optimized YOLO models. No data leaves your machine.',
-                    tags: ['YOLO', 'ONNX', 'Python', 'TensorRT'],
-                    images: [],
-                    link: 'https://github.com/amirreza/localvision',
-                    source: 'https://github.com/amirreza/localvision'
-                },
-                {
-                    id: '2',
-                    title: 'PrivateLLM — Local Chat Assistant',
-                    description: 'A fast, local LLM chat interface built with llama.cpp. Supports multiple model formats and runs on consumer hardware.',
-                    tags: ['llama.cpp', 'RAG', 'FastAPI', 'Docker'],
-                    images: [],
-                    link: 'https://github.com/amirreza/privatellm',
-                    source: 'https://github.com/amirreza/privatellm'
-                },
-                {
-                    id: '3',
-                    title: 'EdgeGuard — Smart Camera Pipeline',
-                    description: 'Real-time video analytics pipeline for edge devices. Optimized for Jetson Nano with quantized models.',
-                    tags: ['TensorRT', 'OpenCV', 'CUDA', 'Jetson'],
-                    images: [],
-                    link: '',
-                    source: 'https://github.com/amirreza/edgeguard'
-                }
-            ];
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(defaults));
-            return defaults;
-        }
+      <!-- Job 2 -->
+      <div class="tl-item">
+        <div class="tl-date"><span data-edit="job2Date">2025 — 2026</span></div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">
+            <div>
+              <h3 data-edit="job2Title">Local AI Chatbot & Voice Assistant</h3>
+            </div>
+          </div>
+          <p data-edit="job2Desc">An AI assistant built around locally hosted language models using Ollama, with a focus on conversational interaction and voice-based communication.</p>
+          <ul data-edit="job2Bullets">
+          </ul>
+          <div class="tags"><span>Python</span><span>Ollama</span><span>LLMs</span><span>Speech Recognition</span></div>
+        </div>
+      </div>
 
-        function saveProjects(projects) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-        }
+      <!-- Job 3 -->
+      <div class="tl-item">
+        <div class="tl-date"><span data-edit="job3Date">2025 — 2026</span></div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="">
+            <div>
+              <h3 data-edit="job3Title">Chest X-ray Analysis with Computer Vision</h3>
+            </div>
+          </div>
+          <p data-edit="job3Desc">A medical imaging project exploring AI-based chest X-ray analysis, with heatmaps to visualize the image regions influencing a model's predictions.</p>
+          <ul data-edit="job3Bullets">
+          </ul>
+          <div class="tags"><span>Python</span><span>Deep Learning</span><span>Computer Vision</span></div>
+        </div>
+      </div>
+    </div>
 
-        // ============ RENDER PROJECTS ============
-        function renderProjects() {
-            const grid = document.getElementById('projects-grid');
-            const projects = getProjects();
+    <!-- Education -->
+    <div class="two-col">
+      <div class="mini-card">
+        <h4><i class="fa-solid fa-graduation-cap"></i> Education</h4>
+        <div class="edu-item">
+          <strong data-edit="edu1Title">OpenCV</strong>
+          <span data-edit="edu1Date">2024 — 2024 •</span>
+          <p data-edit="edu1Desc">Graduate research on Computer vision from maktabkhone.</p>
+        </div>
+        <div class="edu-item">
+          <strong data-edit="edu2Title">Python for AI</strong>
+          <span data-edit="edu2Date">2025 — 2025 •</span>
+          <p data-edit="edu2Desc">Graduate from tecnical and vocational.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-            if (projects.length === 0) {
-                grid.innerHTML = '<div class="no-projects">No projects yet. Add some from the admin panel! 🚀</div>';
-                return;
-            }
+<!-- Projects -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">— Selected Work</span>
+      <h2>Crafted with care</h2>
+      <p class="section-desc">A few projects I'm proud of. More on request or on GitHub.</p>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card featured">
+        <div class="project-img" style="background: linear-gradient(135deg,#0ea5e9,#6366f1);">
+          <i class="fa-solid fa-table-columns"></i>
+          <span class="project-badge">Featured • 2024</span>
+        </div>
+        <div class="project-body">
+          <h3 data-edit="p1t">Hooshyar - AI for schools</h3>
+          <p data-edit="p1d">System based on AI to provide full controll and knowledge about students each per lessons.</p>
+          <div class="tags"><span>mongo sql</span><span>React</span><span>HTML.5</span><span>Claude</span></div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-img" style="background: linear-gradient(135deg,#10b981,#06b6d4);"><i class="fa-solid fa-credit-card"></i></div>
+        <div class="project-body">
+          <h3 data-edit="p2t">Local AI Chatbot & Voice Assistant</h3>
+          <p data-edit="p2d">An AI assistant built around locally hosted language models using Ollama, with a focus on conversational interaction and voice-based communication.</p>
+          <div class="tags"><span>Python</span><span>TTS</span></div>
+        </div>
+      </article>
+      <article class="project-card">
+        <div class="project-img" style="background: linear-gradient(135deg,#f59e0b,#ef4444);"><i class="fa-solid fa-chart-simple"></i></div>
+        <div class="project-body">
+          <h3 data-edit="p3t">Chest X-ray Analysis with Computer Vision</h3>
+          <p data-edit="p3d">A medical imaging project exploring AI-based chest X-ray analysis, with heatmaps to visualize the image regions influencing a model's predictions.</p>
+          <div class="tags"><span>Python</span><span>OpenCV</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
-            grid.innerHTML = projects.map(p => {
-                const images = p.images && p.images.length ? p.images.filter(img => img) : (p.image ? [p.image] : []);
-                const hasMultiple = images.length > 1;
-                const uniqueId = 'carousel-' + p.id;
+<!-- Skills -->
+<section id="skills" class="section alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-kicker">— Skills</span>
+      <h2>Tools I use to ship</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4><i class="fa-solid fa-pen-ruler"></i> Backend</h4>
+        <div class="skill-tags">
+          <span>Product Design</span><span>Python</span><span>SQL</span><span>Prototyping</span>
+        </div>
+        <div class="skill-bars">
+          <div class="sbar"><div class="sbar-label"><span>Python</span><span>95%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:95%"></div></div></div>
+          <div class="sbar"><div class="sbar-label"><span>User Research & Strategy</span><span>85%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:85%"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4><i class="fa-solid fa-code"></i> Engineering</h4>
+        <div class="skill-tags">
+          <span>OpenCV</span><span>Python</span><span>LLM</span><span>SQL</span>
+        </div>
+        <div class="skill-bars">
+          <div class="sbar"><div class="sbar-label"><span>Python</span><span>95%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:90%"></div></div></div>
+          <div class="sbar"><div class="sbar-label"><span>LLM</span><span>88%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:88%"></div></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4><i class="fa-solid fa-people-group"></i> Leadership & More</h4>
+        <div class="skill-tags">
+          <span>Team Leadership</span><span>Mentorship</span><span>Roadmapping</span><span>Cross-functional Collab</span><span>Public Speaking</span><span>Writing</span>
+        </div>
+        <div class="testimonial">
+          <p>“I'm an AI Engineer passionate about making intelligent systems accessible, efficient, and privacy-preserving. My work spans computer vision, local large language models, and edge AI deployment.”</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-                return `
-                <div class="project-card">
-                    <div class="project-carousel" id="${uniqueId}">
-                        <div class="carousel-track" data-slide="0">
-                            ${images.length > 0 ? images.map(img => `
-                                <div class="carousel-slide">
-                                    <img src="${escapeHtml(img)}" alt="${escapeHtml(p.title)}" onerror="this.parentElement.innerHTML='🚀'">
-                                </div>
-                            `).join('') : '<div class="carousel-slide">🚀</div>'}
-                        </div>
-                        ${hasMultiple ? `
-                            <button class="carousel-btn prev" onclick="slideCarousel('${uniqueId}', -1)">‹</button>
-                            <button class="carousel-btn next" onclick="slideCarousel('${uniqueId}', 1)">›</button>
-                            <div class="carousel-dots">
-                                ${images.map((_, i) => `<div class="carousel-dot${i === 0 ? ' active' : ''}" onclick="goToSlide('${uniqueId}', ${i})"></div>`).join('')}
-                            </div>
-                        ` : ''}
-                    </div>
-                    <div class="project-body">
-                        <h3>${escapeHtml(p.title)}</h3>
-                        <p>${escapeHtml(p.description)}</p>
-                        <div class="project-tags">
-                            ${(p.tags || []).map(t => `<span class="project-tag">${escapeHtml(t)}</span>`).join('')}
-                        </div>
-                        <div class="project-links">
-                            ${p.link ? `<a href="${escapeHtml(p.link)}" target="_blank">🔗 Live Demo</a>` : ''}
-                            ${p.source ? `<a href="${escapeHtml(p.source)}" target="_blank">💻 Source Code</a>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `}).join('');
-        }
+<!-- Contact -->
+<section id="contact" class="section dark">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="section-kicker light">— Get in Touch</span>
+        <h2 class="light">Let's build something great together.</h2>
+        <p class="contact-desc" data-edit="contactDesc">I'm currently exploring new opportunities and always happy to chat about product, design systems, or your next big idea. Best way to reach me is email.</p>
+        <div class="contact-methods">
+          <a href="mailto:amirreza.abbasi.ai@gmail.com" class="cm"><i class="fa-regular fa-envelope"></i><div><span>Email</span><strong data-edit="cEmail">amirreza.abbasi.ai@gmail.com</strong></div></a>
+          <a href="#" class="cm"><i class="fa-brands fa-linkedin-in"></i><div><span>LinkedIn</span><strong data-edit="cLinked">https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android</strong></div></a>
+          <a href="#" class="cm"><i class="fa-solid fa-location-dot"></i><div><span>Based in</span><strong data-edit="cLoc"> Alboz, karaj</strong></div></a>
+        </div>
+      </div>
+      <form class="contact-form" id="contactForm" onsubmit="handleForm(event)">
+        <div class="form-row">
+          <label>Name<input type="text" placeholder="Your name" required></label>
+          <label>Email<input type="email" placeholder="you@company.com" required></label>
+        </div>
+        <label>Subject<input type="text" placeholder="How can I help?" required></label>
+        <label>Message<textarea rows="5" placeholder="Tell me about your project, role, or just say hi..." required></textarea></label>
+        <button type="submit" class="btn-primary large full"><i class="fa-regular fa-paper-plane"></i> Send message</button>
+        <p class="form-note"><i class="fa-solid fa-lock"></i> This demo form shows a success message. Connect it to Formspree or your email to make it live.</p>
+        <p id="formSuccess" class="form-success hidden"><i class="fa-solid fa-circle-check"></i> Message sent! I'll get back to you within 24 hours.</p>
+      </form>
+    </div>
+  </div>
+</section>
 
-        // ============ ADMIN PANEL ============
-        let isLoggedIn = false;
+<footer>
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> <span data-edit="footerName"> Amir reza abbasi</span> — Designed & built with care. <span class="mono">Last updated: Oct 2026</span></p>
+    <div class="footer-links">
+<a href="https://github.com/amirrezaabbasiai-svg" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-github"></i>
+</a>
 
-        function openAdmin(e) {
-            e.preventDefault();
-            document.getElementById('admin-overlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-            if (isLoggedIn) {
-                showDashboard();
-            } else {
-                document.getElementById('login-screen').style.display = 'block';
-                document.getElementById('admin-dashboard').style.display = 'none';
-                document.getElementById('admin-password').value = '';
-                setTimeout(() => document.getElementById('admin-password').focus(), 100);
-            }
-        }
+<a href="https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-linkedin-in"></i>
+</a>
 
-        function closeAdmin() {
-            document.getElementById('admin-overlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
+<a href="http://t.me/AmirrezaabbasiAI" target="_blank" rel="noopener noreferrer">
+  <i class="fa-brands fa-telegram"></i>
+</a>
 
-        function attemptLogin() {
-            const pw = document.getElementById('admin-password').value;
-            if (pw === ADMIN_PASSWORD) {
-                isLoggedIn = true;
-                showDashboard();
-            } else {
-                showToast('❌ Incorrect password');
-                document.getElementById('admin-password').value = '';
-                document.getElementById('admin-password').focus();
-            }
-        }
+    </div>
+  </div>
+</footer>
 
-        function showDashboard() {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('admin-dashboard').style.display = 'block';
-            renderAdminProjects();
-        }
+<!-- Customize Modal -->
+<div id="customizeModal" class="modal hidden">
+  <div class="modal-overlay" onclick="closeCustomize()"></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Personalize your site</h3>
+      <button onclick="closeCustomize()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p class="modal-desc">Fill in your details — the site updates instantly. You can also click any text directly on the page.</p>
+    <div class="modal-grid">
+      <label>Full Name<input id="inpName" placeholder="Amir reza abbasi"></label>
+      <label>Professional Title<input id="inpTitle" placeholder="AI engineer & machine vision"></label>
+      <label>Email<input id="inpEmail" placeholder="amirreza.abbasi.ai@gmail.com"></label>
+      <label>Location<input id="inpLocation" placeholder="Alboz , karaj"></label>
+      <label>LinkedIn URL<input id="inpLinkedin" placeholder="https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android"></label>
+      <label>GitHub URL<input id="inpGithub" placeholder="https://github.com/amirrezaabbasiai-svg"></label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="applyQuickEdit()">Apply changes</button>
+      <button class="btn-ghost" onclick="closeCustomize()">Cancel</button>
+      <button class="btn-ghost danger" onclick="resetAll()"><i class="fa-solid fa-rotate-left"></i> Reset demo</button>
+    </div>
+    <div class="tips">
+      <strong><i class="fa-solid fa-lightbulb"></i> Tips:</strong>
+      <ul>
+        <li>Click <b>Customize</b> in the navbar or click any text when Edit Mode is on.</li>
+        <li>Upload your photo by clicking the camera icon on your profile card.</li>
+        <li>Press <b>Download CV</b> to save as PDF (Ctrl/Cmd + P → Save as PDF).</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-        function renderAdminProjects() {
-            const projects = getProjects();
-            document.getElementById('project-count').textContent = projects.length;
-            const list = document.getElementById('admin-project-list');
-
-            if (projects.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:20px;">No projects yet. Add your first one above!</p>';
-                return;
-            }
-
-            list.innerHTML = projects.map(p => `
-                <div class="admin-project-item">
-                    <div class="admin-project-info">
-                        <h4>${escapeHtml(p.title)}</h4>
-                        <p>${(p.tags || []).join(', ')}</p>
-                    </div>
-                    <div class="admin-project-actions">
-                        <button class="btn-small btn-edit" onclick="editProject('${p.id}')">✏️ Edit</button>
-                        <button class="btn-small btn-delete" onclick="deleteProject('${p.id}')">🗑️ Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function saveProject(e) {
-            e.preventDefault();
-            const editId = document.getElementById('edit-id').value;
-            const project = {
-                id: editId || Date.now().toString(),
-                title: document.getElementById('proj-title').value.trim(),
-                description: document.getElementById('proj-desc').value.trim(),
-                tags: document.getElementById('proj-tags').value.split(',').map(t => t.trim()).filter(t => t),
-                images: uploadedImages.filter(img => img),
-                link: document.getElementById('proj-link').value.trim(),
-                source: document.getElementById('proj-source').value.trim()
-            };
-
-            let projects = getProjects();
-
-            if (editId) {
-                const idx = projects.findIndex(p => p.id === editId);
-                if (idx !== -1) projects[idx] = project;
-                showToast('✅ Project updated!');
-            } else {
-                projects.unshift(project);
-                showToast('✅ Project added!');
-            }
-
-            saveProjects(projects);
-            resetForm();
-            renderAdminProjects();
-            renderProjects();
-        }
-
-        function editProject(id) {
-            const projects = getProjects();
-            const p = projects.find(proj => proj.id === id);
-            if (!p) return;
-
-            const images = p.images && p.images.length ? p.images : (p.image ? [p.image] : []);
-
-            document.getElementById('edit-id').value = p.id;
-            document.getElementById('proj-title').value = p.title;
-            document.getElementById('proj-desc').value = p.description;
-            document.getElementById('proj-tags').value = (p.tags || []).join(', ');
-            document.getElementById('proj-link').value = p.link || '';
-            document.getElementById('proj-source').value = p.source || '';
-
-            // Reset uploads then populate with existing
-            resetUploads();
-            images.forEach((img, i) => {
-                if (i < 3) setUploadPreview(i, img);
-            });
-
-            document.getElementById('form-title').textContent = 'Edit Project';
-            document.getElementById('submit-btn').textContent = 'Update Project';
-
-            // Scroll to form
-            document.getElementById('project-form').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function deleteProject(id) {
-            if (!confirm('Are you sure you want to delete this project?')) return;
-            let projects = getProjects();
-            projects = projects.filter(p => p.id !== id);
-            saveProjects(projects);
-            renderAdminProjects();
-            renderProjects();
-            showToast('🗑️ Project deleted');
-        }
-
-        function resetUploads() {
-            uploadedImages = [null, null, null];
-            for (let i = 0; i < 3; i++) {
-                const box = document.getElementById(`upload-box-${i}`);
-                const fileInput = document.getElementById(`proj-file${i + 1}`);
-                fileInput.value = '';
-                box.querySelector('.upload-placeholder').style.display = 'flex';
-                box.querySelector('.upload-preview').style.display = 'none';
-                document.getElementById(`preview-img-${i}`).src = '';
-            }
-        }
-
-        function resetForm() {
-            document.getElementById('project-form').reset();
-            document.getElementById('edit-id').value = '';
-            document.getElementById('form-title').textContent = 'Add New Project';
-            document.getElementById('submit-btn').textContent = 'Add Project';
-            resetUploads();
-        }
-
-        // ============ IMAGE UPLOAD ============
-        let uploadedImages = [null, null, null]; // stores base64 data URIs
-
-        function previewUpload(input, index) {
-            const file = input.files[0];
-            if (!file) return;
-
-            if (!file.type.startsWith('image/')) {
-                showToast('❌ Please select an image file');
-                return;
-            }
-
-            // Compress and convert to base64
-            compressImage(file, 800, 0.8, (dataUrl) => {
-                uploadedImages[index] = dataUrl;
-                const previewImg = document.getElementById(`preview-img-${index}`);
-                const box = document.getElementById(`upload-box-${index}`);
-                previewImg.src = dataUrl;
-                box.querySelector('.upload-placeholder').style.display = 'none';
-                box.querySelector('.upload-preview').style.display = 'block';
-                showToast(`✅ Image ${index + 1} ready!`);
-            });
-        }
-
-        function removeUpload(index) {
-            uploadedImages[index] = null;
-            const box = document.getElementById(`upload-box-${index}`);
-            const fileInput = document.getElementById(`proj-file${index + 1}`);
-            fileInput.value = '';
-            box.querySelector('.upload-placeholder').style.display = 'flex';
-            box.querySelector('.upload-preview').style.display = 'none';
-            document.getElementById(`preview-img-${index}`).src = '';
-        }
-
-        function compressImage(file, maxWidth, quality, callback) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    let width = img.width;
-                    let height = img.height;
-
-                    // Resize if wider than maxWidth
-                    if (width > maxWidth) {
-                        height = Math.round((height * maxWidth) / width);
-                        width = maxWidth;
-                    }
-
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-
-                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
-                    callback(dataUrl);
-                };
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function setUploadPreview(index, dataUrl) {
-            if (!dataUrl) return;
-            uploadedImages[index] = dataUrl;
-            const previewImg = document.getElementById(`preview-img-${index}`);
-            const box = document.getElementById(`upload-box-${index}`);
-            previewImg.src = dataUrl;
-            box.querySelector('.upload-placeholder').style.display = 'none';
-            box.querySelector('.upload-preview').style.display = 'block';
-        }
-
-        // ============ CAROUSEL ============
-        function slideCarousel(carouselId, direction) {
-            const carousel = document.getElementById(carouselId);
-            const track = carousel.querySelector('.carousel-track');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.carousel-dot');
-            let current = parseInt(track.dataset.slide);
-            current += direction;
-            if (current < 0) current = slides.length - 1;
-            if (current >= slides.length) current = 0;
-            track.style.transform = `translateX(-${current * 100}%)`;
-            track.dataset.slide = current;
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
-        }
-
-        function goToSlide(carouselId, index) {
-            const carousel = document.getElementById(carouselId);
-            const track = carousel.querySelector('.carousel-track');
-            const dots = carousel.querySelectorAll('.carousel-dot');
-            track.style.transform = `translateX(-${index * 100}%)`;
-            track.dataset.slide = index;
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-        }
-
-        // ============ UTILS ============
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // ============ INIT ============
-        renderProjects();
-    </script>
+<script src="script.js"></script>
 </body>
 </html>
