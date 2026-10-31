@@ -1,434 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amir reza abbasi — Portfolio & Resume</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Portfolio of Amirreza Abbasi — Aspiring AI Engineer focused on LLMs, Computer Vision, Local AI and intelligent applications.">
+
+    <title>Amirreza Abbasi | AI Engineer Portfolio</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<!-- Edit Banner -->
-<div id="editBanner">
-  <i class="fa-solid fa-pen-to-square"></i> Edit Mode is ON — Click any text to edit it. Changes save automatically.
-  <button onclick="toggleEdit(false)">Done Editing</button>
-</div>
 
-<!-- Navigation -->
-<nav id="navbar">
-  <div class="nav-inner">
-    <a href="#" class="logo">
-      <span class="logo-mark">A</span>
-    </a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="nav-actions">
-      <button class="icon-btn" id="themeToggle" title="Toggle theme"><i class="fa-regular fa-moon"></i></button>
-      <button class="hamburger" id="hamburger"><i class="fa-solid fa-bars"></i></button>
-    </div>
-  </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+    <!-- Background decoration -->
+    <div class="background-grid"></div>
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="hero-bg">
-    <div class="hero-gradient"></div>
-    <div class="hero-grid"></div>
-  </div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="eyebrow">
-        <span class="dot"></span>
-        <span data-edit="availability">Available for new opportunities — Q4 2026</span>
-      </div>
-      <h1>
-        <span class="h1-line serif" data-edit="heroName1"> Amir reza abbasi</span>
-        <span class="h1-line muted" data-edit="heroTitle">AI engineer &<br>machine vision</span>
-      </h1>
-      <p class="hero-desc" data-edit="heroDesc">
-        I build AI-powered applications that combine practical problem-solving with modern technology. Passionate about local AI, computer vision, and intelligent systems, I turn ideas into functional digital solutions.
-      </p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn-primary large"><i class="fa-regular fa-paper-plane"></i> Let's talk</a>
-        <a href="#projects" class="btn-secondary large"><i class="fa-solid fa-arrow-right"></i> View work</a>
-      </div>
-      <div class="hero-meta">
-        <div class="meta-item">
-          <strong>1+</strong>
-          <span>Years<br>Experience</span>
-        </div>
-        <div class="meta-item">
-          <strong>10+</strong>
-          <span>Projects<br>Shipped</span>
-        </div>
-        <div class="meta-item">
-          <strong>5</strong>
-          <span>Documents &<br>Features</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="profile-card">
-        <div class="profile-img-wrap">
-          <div class="profile-img" id="profileImg">
-            <img src="images/profile.jpg" alt="My profile picture">
-          </div>
-            <span>AM</span>
-          </div>
-          </label>
-          <div class="status-badge">
-            <span class="pulse"></span> Open to work
-          </div>
-        </div>
-        <div class="profile-info">
-          <h3 data-edit="profileName">Amir reza abbasi</h3>
-          <p class="role" data-edit="profileRole">AI engineer & machine vision</p>
-          <p class="location" data-edit="profileLocation"><i class="fa-solid fa-location-dot"></i> Alborz, karaj</p>
-          <div class="profile-links">
-            <a href="#" class="plink" data-edit-link><i class="fa-regular fa-envelope"></i> <span data-edit="email">amirreza.abbasi.ai@gmail.com</span></a>
-            <a href="#" class="plink" data-edit-link><i class="fa-brands fa-linkedin-in"></i> <span data-edit="linkedin">https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android</span></a>
-            <a href="#" class="plink" data-edit-link><i class="fa-brands fa-github"></i> <span data-edit="github">https://github.com/amirrezaabbasiai-svg</span></a>
-            <a href="#" class="plink" data-edit-link><i class="fa-solid fa-globe"></i> <span data-edit="website">alexmorgan.design</span></a>
-          </div>
-          <div class="profile-actions">
-            <a href="#" class="btn-primary full" onclick="window.print();return false;"><i class="fa-solid fa-file-arrow-down"></i> Download Resume PDF</a>
-          </div>
-        </div>
-      </div>
-      <!-- floating cards -->
-      <div class="float-card fc1">
-        <i class="fa-solid fa-code"></i>
-        <div><strong>Clean Code</strong><span>Python • TensorFlow • SKlearn</span></div>
-      </div>
-      <div class="float-card fc2">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-        <div><strong>LLM</strong><span>Ollama • TTS • Local</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Slogan / Thanks to God -->
-<section class="slogan-section">
-  <div class="container">
-    <div class="slogan-card">
-      <div class="slogan-ornament">
-        <span class="ornament-line"></span>
-        <i class="fa-solid fa-star-and-crescent"></i>
-        <span class="ornament-line"></span>
-      </div>
-      <h2 class="arabic-slogan" dir="rtl" lang="ar" data-edit="slogan">الحمد الله الذی جعل اعدانا من الحمقا</h2>
-      <p class="slogan-divider">—</p>
-      <p class="slogan-translation" data-edit="sloganEn">Praise be to God who made our enemies from among the foolish</p>
-    </div>
-  </div>
-</section>
+    <!-- Navigation -->
+    <header class="navbar" id="navbar">
 
-<!-- About -->
-<section id="about" class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">— About Me</span>
-      <h2 data-edit="aboutTitle">Designer who codes. Engineer who cares about pixels.</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="lead" data-edit="aboutLead">I'm an AI-focused developer passionate about building intelligent applications that solve real-world problems. I work on projects ranging from AI-powered chatbots and locally hosted language models to computer vision and educational platforms.</p>
-        <p data-edit="aboutP1">My focus is on turning ideas into working solutions, exploring modern AI technologies, and building applications that are practical, accessible, and useful.</p>
-        <p data-edit="aboutP2">I enjoy working at the intersection of AI and software development, where experimentation meets engineering. I believe the best way to learn is to build, understand how things work, and continuously improve what you create.</p>
-        <div class="about-highlights">
-          <div class="highlight"><i class="fa-solid fa-bolt"></i><div><strong data-edit="h1t">Obsessed with craft</strong><p data-edit="h1d">Every interaction, every 8px matters.</p></div></div>
-          <div class="highlight"><i class="fa-solid fa-users"></i><div><strong data-edit="h2t">Team first</strong><p data-edit="h2d">Mentored 12+ designers & engineers.</p></div></div>
-          <div class="highlight"><i class="fa-solid fa-chart-line"></i><div><strong data-edit="h3t">Business aware</strong><p data-edit="h3d">Design that moves metrics, not just Dribbble likes.</p></div></div>
-        </div>
-      </div>
-      <div class="about-side">
-        <div class="info-card">
-          <h4><i class="fa-solid fa-briefcase"></i> Quick Facts</h4>
-          <ul>
-            <li><span>Location</span><strong data-edit="qfLocation">Alborz , karaj</strong></li>
-            <li><span>Experience</span><strong data-edit="qfExp">1+ Years</strong></li>
-            <li><span>Focus</span><strong data-edit="qfFocus">AI Development / LLM</strong></li>
-            <li><span>Languages</span><strong data-edit="qfLang">English, Persian</strong></li>
-          </ul>
-        </div>
-        <div class="info-card accent">
-          <h4>Currently</h4>
-          <p data-edit="currently">Exploring new senior product design / design engineering roles. Interested in AI tools, devtools, and early-stage teams.</p>
-          <a href="#contact" class="link-arrow">Get in touch <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="nav-container">
 
-<!-- Experience -->
-<section id="experience" class="section alt">
-  <div class="container">
-    <div class="section-header row">
-      <div>
-        <span class="section-kicker">— Experience</span>
-        <h2>Where I've made impact</h2>
-      </div>
-      <a href="#" class="btn-secondary" onclick="window.print();return false;"><i class="fa-regular fa-file-lines"></i> Full CV as PDF</a>
-    </div>
+            <a href="#home" class="logo">
+                <span class="logo-icon">A</span>
+                <span>Amirreza.</span>
+            </a>
 
-    <div class="timeline">
-      <!-- Job 1 -->
-      <div class="tl-item">
-        <div class="tl-date">
-          <span data-edit="job1Date">2025 — 2026t</span>
-          <span class="badge current">Current</span>
-        </div>
-        <div class="tl-card">
-          <div class="tl-card-head">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="">
-            <div>
-              <h3 data-edit="job1Title">AI-Powered Educational Platform</h3>
+            <nav class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#journey">Journey</a>
+                <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+
+                <button class="theme-btn"
+                    id="themeToggle"
+                    aria-label="Toggle theme">
+
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+
+                <a href="#contact" class="nav-contact">
+                    Let's Talk
+                </a>
+
+                <button class="menu-btn"
+                    id="menuBtn"
+                    aria-label="Open navigation">
+
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
             </div>
-          </div>
-          <p data-edit="job1Desc">A learning platform designed to support students and teachers with AI-powered educational tools, student performance tracking, and exam-related workflows.</p>
-          <ul data-edit="job1Bullets">
-          </ul>
-          <div class="tags">
-            <span>Python</span><span>AI/LLM</span><span>Web Develpment</span><span>Leadership</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 2 -->
-      <div class="tl-item">
-        <div class="tl-date"><span data-edit="job2Date">2025 — 2026</span></div>
-        <div class="tl-card">
-          <div class="tl-card-head">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="">
-            <div>
-              <h3 data-edit="job2Title">Local AI Chatbot & Voice Assistant</h3>
+        </div>
+
+    </header>
+
+
+    <!-- Hero -->
+    <main id="home">
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <div class="availability">
+
+                        <span class="status-dot"></span>
+
+                        Open to internship & junior opportunities
+
+                    </div>
+
+
+                    <p class="hero-label">
+                        HELLO, I'M
+                    </p>
+
+
+                    <h1>
+
+                        <span>Amirreza</span>
+
+                        <span class="gradient-text">
+                            Abbasi.
+                        </span>
+
+                    </h1>
+
+
+                    <h2>
+                        Building practical
+                        <br>
+                        <span>AI applications.</span>
+                    </h2>
+
+
+                    <p class="hero-description">
+
+                        I'm an aspiring AI Engineer focused on building
+                        practical projects with Large Language Models,
+                        Computer Vision, and local AI technologies.
+                        I learn by building, experimenting, and turning
+                        ideas into working applications.
+
+                    </p>
+
+
+                    <div class="hero-buttons">
+
+                        <a href="#projects" class="btn btn-primary">
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                            Explore My Work
+
+                        </a>
+
+
+                        <a href="https://github.com/amirrezaabbasiai-svg"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-secondary">
+
+                            <i class="fa-brands fa-github"></i>
+
+                            GitHub
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-tech">
+
+                        <span>Exploring:</span>
+
+                        <div class="tech-list">
+
+                            <span>Python</span>
+                            <span>LLMs</span>
+                            <span>Computer Vision</span>
+                            <span>AI Agents</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Hero visual -->
+                <div class="hero-visual">
+
+                    <div class="orbit orbit-one"></div>
+                    <div class="orbit orbit-two"></div>
+
+
+                    <div class="profile-card">
+
+                        <div class="profile-image">
+
+                            <img
+                                src="images/profile.jpg"
+                                alt="Portrait of Amirreza Abbasi"
+                                onerror="this.style.display='none'; this.parentElement.classList.add('no-image');"
+                            >
+
+                            <div class="image-placeholder">
+                                AA
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-info">
+
+                            <h3>Amirreza Abbasi</h3>
+
+                            <p>
+                                Aspiring AI Engineer
+                            </p>
+
+                        </div>
+
+
+                        <div class="profile-location">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>Karaj, Iran</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Floating AI card -->
+                    <div class="floating-card card-ai">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>AI Development</strong>
+
+                            <span>
+                                LLMs · Local AI
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Floating CV card -->
+                    <div class="floating-card card-cv">
+
+                        <div class="floating-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>Computer Vision</strong>
+
+                            <span>
+                                OpenCV · Deep Learning
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-          </div>
-          <p data-edit="job2Desc">An AI assistant built around locally hosted language models using Ollama, with a focus on conversational interaction and voice-based communication.</p>
-          <ul data-edit="job2Bullets">
-          </ul>
-          <div class="tags"><span>Python</span><span>Ollama</span><span>LLMs</span><span>Speech Recognition</span></div>
-        </div>
-      </div>
 
-      <!-- Job 3 -->
-      <div class="tl-item">
-        <div class="tl-date"><span data-edit="job3Date">2025 — 2026</span></div>
-        <div class="tl-card">
-          <div class="tl-card-head">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg" alt="">
-            <div>
-              <h3 data-edit="job3Title">Chest X-ray Analysis with Computer Vision</h3>
+        </section>
+
+
+        <!-- About -->
+        <section id="about" class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        01 / ABOUT
+                    </span>
+
+                    <h2>
+                        Learning by building
+                        <span>real projects.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="about-grid">
+
+                    <div class="about-main">
+
+                        <p class="large-text">
+
+                            I am building my path into AI engineering through
+                            hands-on learning and practical projects. My current
+                            interests include Large Language Models, local and
+                            privacy-focused AI, Computer Vision, and AI agents.
+
+                        </p>
+
+
+                        <p>
+
+                            Rather than focusing only on theory, I work on
+                            creating executable applications and exploring how
+                            modern AI technologies can be used to solve practical
+                            problems. I am continuously developing my programming
+                            and engineering skills while building a portfolio of
+                            AI projects.
+
+                        </p>
+
+
+                        <p>
+
+                            My goal is to join an engineering environment where
+                            I can contribute, learn from experienced developers,
+                            and grow into a capable AI Engineer.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="about-cards">
+
+                        <div class="info-card">
+
+                            <i class="fa-solid fa-brain"></i>
+
+                            <div>
+
+                                <h3>AI & LLMs</h3>
+
+                                <p>
+                                    Exploring language models and
+                                    AI-powered applications.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-card">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            <div>
+
+                                <h3>Computer Vision</h3>
+
+                                <p>
+                                    Exploring image analysis and
+                                    deep learning applications.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="info-card">
+
+                            <i class="fa-solid fa-server"></i>
+
+                            <div>
+
+                                <h3>Local AI</h3>
+
+                                <p>
+                                    Interested in private and
+                                    locally hosted AI systems.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
-          </div>
-          <p data-edit="job3Desc">A medical imaging project exploring AI-based chest X-ray analysis, with heatmaps to visualize the image regions influencing a model's predictions.</p>
-          <ul data-edit="job3Bullets">
-          </ul>
-          <div class="tags"><span>Python</span><span>Deep Learning</span><span>Computer Vision</span></div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Education -->
-    <div class="two-col">
-      <div class="mini-card">
-        <h4><i class="fa-solid fa-graduation-cap"></i> Education</h4>
-        <div class="edu-item">
-          <strong data-edit="edu1Title">OpenCV</strong>
-          <span data-edit="edu1Date">2024 — 2024 •</span>
-          <p data-edit="edu1Desc">Graduate research on Computer vision from maktabkhone.</p>
-        </div>
-        <div class="edu-item">
-          <strong data-edit="edu2Title">Python for AI</strong>
-          <span data-edit="edu2Date">2025 — 2025 •</span>
-          <p data-edit="edu2Desc">Graduate from tecnical and vocational.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        </section>
 
-<!-- Projects -->
-<section id="projects" class="section">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">— Selected Work</span>
-      <h2>Crafted with care</h2>
-      <p class="section-desc">A few projects I'm proud of. More on request or on GitHub.</p>
-    </div>
-    <div class="projects-grid">
-      <article class="project-card featured">
-        <div class="project-img" style="background: linear-gradient(135deg,#0ea5e9,#6366f1);">
-          <i class="fa-solid fa-table-columns"></i>
-          <span class="project-badge">Featured • 2024</span>
-        </div>
-        <div class="project-body">
-          <h3 data-edit="p1t">Hooshyar - AI for schools</h3>
-          <p data-edit="p1d">System based on AI to provide full controll and knowledge about students each per lessons.</p>
-          <div class="tags"><span>mongo sql</span><span>React</span><span>HTML.5</span><span>Claude</span></div>
-        </div>
-      </article>
-      <article class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#10b981,#06b6d4);"><i class="fa-solid fa-credit-card"></i></div>
-        <div class="project-body">
-          <h3 data-edit="p2t">Local AI Chatbot & Voice Assistant</h3>
-          <p data-edit="p2d">An AI assistant built around locally hosted language models using Ollama, with a focus on conversational interaction and voice-based communication.</p>
-          <div class="tags"><span>Python</span><span>TTS</span></div>
-        </div>
-      </article>
-      <article class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#f59e0b,#ef4444);"><i class="fa-solid fa-chart-simple"></i></div>
-        <div class="project-body">
-          <h3 data-edit="p3t">Chest X-ray Analysis with Computer Vision</h3>
-          <p data-edit="p3d">A medical imaging project exploring AI-based chest X-ray analysis, with heatmaps to visualize the image regions influencing a model's predictions.</p>
-          <div class="tags"><span>Python</span><span>OpenCV</span></div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
 
-<!-- Skills -->
-<section id="skills" class="section alt">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-kicker">— Skills</span>
-      <h2>Tools I use to ship</h2>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h4><i class="fa-solid fa-pen-ruler"></i> Backend</h4>
-        <div class="skill-tags">
-          <span>Product Design</span><span>Python</span><span>SQL</span><span>Prototyping</span>
-        </div>
-        <div class="skill-bars">
-          <div class="sbar"><div class="sbar-label"><span>Python</span><span>95%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:95%"></div></div></div>
-          <div class="sbar"><div class="sbar-label"><span>User Research & Strategy</span><span>85%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:85%"></div></div></div>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4><i class="fa-solid fa-code"></i> Engineering</h4>
-        <div class="skill-tags">
-          <span>OpenCV</span><span>Python</span><span>LLM</span><span>SQL</span>
-        </div>
-        <div class="skill-bars">
-          <div class="sbar"><div class="sbar-label"><span>Python</span><span>95%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:90%"></div></div></div>
-          <div class="sbar"><div class="sbar-label"><span>LLM</span><span>88%</span></div><div class="sbar-track"><div class="sbar-fill" style="width:88%"></div></div></div>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h4><i class="fa-solid fa-people-group"></i> Leadership & More</h4>
-        <div class="skill-tags">
-          <span>Team Leadership</span><span>Mentorship</span><span>Roadmapping</span><span>Cross-functional Collab</span><span>Public Speaking</span><span>Writing</span>
-        </div>
-        <div class="testimonial">
-          <p>“I'm an AI Engineer passionate about making intelligent systems accessible, efficient, and privacy-preserving. My work spans computer vision, local large language models, and edge AI deployment.”</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <!-- Projects -->
+        <section id="projects" class="section section-dark">
 
-<!-- Contact -->
-<section id="contact" class="section dark">
-  <div class="container">
-    <div class="contact-grid">
-      <div>
-        <span class="section-kicker light">— Get in Touch</span>
-        <h2 class="light">Let's build something great together.</h2>
-        <p class="contact-desc" data-edit="contactDesc">I'm currently exploring new opportunities and always happy to chat about product, design systems, or your next big idea. Best way to reach me is email.</p>
-        <div class="contact-methods">
-          <a href="mailto:amirreza.abbasi.ai@gmail.com" class="cm"><i class="fa-regular fa-envelope"></i><div><span>Email</span><strong data-edit="cEmail">amirreza.abbasi.ai@gmail.com</strong></div></a>
-          <a href="#" class="cm"><i class="fa-brands fa-linkedin-in"></i><div><span>LinkedIn</span><strong data-edit="cLinked">https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android</strong></div></a>
-          <a href="#" class="cm"><i class="fa-solid fa-location-dot"></i><div><span>Based in</span><strong data-edit="cLoc"> Alboz, karaj</strong></div></a>
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        02 / PROJECTS
+                    </span>
+
+                    <h2>
+                        Things I've been
+                        <span>building.</span>
+                    </h2>
+
+                    <p class="section-intro">
+
+                        A selection of projects focused on practical
+                        AI applications and hands-on experimentation.
+
+                    </p>
+
+                </div>
+
+
+                <div class="projects-grid">
+
+
+                    <!-- Project 1 -->
+                    <article class="project-card featured-project">
+
+                        <div class="project-top">
+
+                            <div class="project-icon icon-purple">
+
+                                <i class="fa-solid fa-comments"></i>
+
+                            </div>
+
+                            <span class="project-status">
+                                Executable
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                LOCAL AI · LLM
+                            </span>
+
+                            <h3>
+                                Local AI Assistant
+                            </h3>
+
+                            <p>
+
+                                An executable AI assistant project focused on
+                                conversational interaction with locally hosted
+                                language models. The project explores local AI
+                                infrastructure and practical LLM-based workflows.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="project-tech">
+
+                            <span>Python</span>
+                            <span>Ollama</span>
+                            <span>LLMs</span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Project 2 -->
+                    <article class="project-card">
+
+                        <div class="project-top">
+
+                            <div class="project-icon icon-blue">
+
+                                <i class="fa-solid fa-graduation-cap"></i>
+
+                            </div>
+
+                            <span class="project-status">
+                                Tested
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                AI · EDUCATION
+                            </span>
+
+                            <h3>
+                                AI Educational Platform
+                            </h3>
+
+                            <p>
+
+                                An executable and tested project exploring
+                                AI-powered tools for education, including
+                                practical workflows designed around learning
+                                and educational applications.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="project-tech">
+
+                            <span>Python</span>
+                            <span>AI / LLM</span>
+                            <span>Education</span>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- Project 3 -->
+                    <article class="project-card">
+
+                        <div class="project-top">
+
+                            <div class="project-icon icon-green">
+
+                                <i class="fa-solid fa-x-ray"></i>
+
+                            </div>
+
+                            <span class="project-status">
+                                Research Project
+                            </span>
+
+                        </div>
+
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                COMPUTER VISION
+                            </span>
+
+                            <h3>
+                                Chest X-ray Analysis
+                            </h3>
+
+                            <p>
+
+                                A computer vision project exploring
+                                AI-based chest X-ray analysis and heatmaps
+                                for visualizing image regions that influence
+                                model predictions.
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="project-tech">
+
+                            <span>Python</span>
+                            <span>Computer Vision</span>
+                            <span>Deep Learning</span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <div class="github-banner">
+
+                    <div>
+
+                        <span class="github-label">
+                            MORE WORK
+                        </span>
+
+                        <h3>
+                            Explore my projects and learning journey on GitHub.
+                        </h3>
+
+                    </div>
+
+
+                    <a href="https://github.com/amirrezaabbasiai-svg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn btn-primary">
+
+                        <i class="fa-brands fa-github"></i>
+
+                        Visit GitHub
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Skills -->
+        <section id="skills" class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        03 / SKILLS
+                    </span>
+
+                    <h2>
+                        Technologies I'm
+                        <span>working with.</span>
+                    </h2>
+
+                    <p class="section-intro">
+
+                        A practical overview of the technologies and areas
+                        currently shaping my learning and projects.
+
+                    </p>
+
+                </div>
+
+
+                <div class="skills-layout">
+
+
+                    <div class="skill-column">
+
+                        <div class="skill-header">
+
+                            <i class="fa-solid fa-code"></i>
+
+                            <h3>
+                                Programming & Development
+                            </h3>
+
+                        </div>
+
+
+                        <div class="skill-tags">
+
+                            <span>Python</span>
+                            <span>Git & GitHub</span>
+                            <span>SQL Fundamentals</span>
+                            <span>APIs</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-column">
+
+                        <div class="skill-header">
+
+                            <i class="fa-solid fa-microchip"></i>
+
+                            <h3>
+                                Artificial Intelligence
+                            </h3>
+
+                        </div>
+
+
+                        <div class="skill-tags">
+
+                            <span>Large Language Models</span>
+                            <span>Ollama</span>
+                            <span>Local AI</span>
+                            <span>AI Applications</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-column">
+
+                        <div class="skill-header">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                            <h3>
+                                Computer Vision
+                            </h3>
+
+                        </div>
+
+
+                        <div class="skill-tags">
+
+                            <span>OpenCV</span>
+                            <span>Image Processing</span>
+                            <span>Deep Learning</span>
+                            <span>Model Visualization</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="skill-column learning">
+
+                        <div class="skill-header">
+
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+
+                            <h3>
+                                Currently Learning
+                            </h3>
+
+                        </div>
+
+
+                        <div class="skill-tags">
+
+                            <span>AI Engineering</span>
+                            <span>AI Agents</span>
+                            <span>Machine Learning</span>
+                            <span>Deployment</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Journey -->
+        <section id="journey" class="section journey-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        04 / JOURNEY
+                    </span>
+
+                    <h2>
+                        Where I'm going
+                        <span>next.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="journey-grid">
+
+                    <div class="journey-text">
+
+                        <p class="large-text">
+
+                            My current goal is to build strong technical
+                            foundations and prepare for international
+                            internship and junior AI engineering opportunities.
+
+                        </p>
+
+
+                        <p>
+
+                            I am focused on improving my programming skills,
+                            building more technically complete projects,
+                            strengthening my GitHub portfolio, and learning
+                            the engineering practices required to contribute
+                            to real software and AI teams.
+
+                        </p>
+
+
+                        <a href="#contact" class="text-link">
+
+                            Interested in working together?
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="roadmap">
+
+                        <div class="roadmap-item active">
+
+                            <span>NOW</span>
+
+                            <div>
+
+                                <h3>
+                                    Build & Learn
+                                </h3>
+
+                                <p>
+                                    Developing technical skills through
+                                    hands-on AI projects.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="roadmap-item">
+
+                            <span>NEXT</span>
+
+                            <div>
+
+                                <h3>
+                                    Strengthen Engineering Skills
+                                </h3>
+
+                                <p>
+                                    Improve programming, software engineering,
+                                    and AI development foundations.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="roadmap-item">
+
+                            <span>GOAL</span>
+
+                            <div>
+
+                                <h3>
+                                    Join an AI Engineering Team
+                                </h3>
+
+                                <p>
+                                    Contribute to real-world projects while
+                                    continuing to learn and grow.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Contact -->
+        <section id="contact" class="contact-section">
+
+            <div class="container">
+
+                <div class="contact-content">
+
+                    <span class="section-number light-number">
+                        05 / CONTACT
+                    </span>
+
+
+                    <h2>
+                        Let's connect and
+                        <span>build something.</span>
+                    </h2>
+
+
+                    <p>
+
+                        I'm interested in connecting with developers,
+                        AI teams, and organizations working on interesting
+                        technology. Feel free to reach out.
+
+                    </p>
+
+
+                    <div class="contact-buttons">
+
+                        <a href="mailto:amirreza.abbasi.ai@gmail.com"
+                            class="btn btn-white">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            Send an Email
+
+                        </a>
+
+
+                        <a href="https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn btn-outline-white">
+
+                            <i class="fa-brands fa-linkedin-in"></i>
+
+                            LinkedIn
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="contact-socials">
+
+                        <a href="https://github.com/amirrezaabbasiai-svg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <i class="fa-brands fa-github"></i>
+                            GitHub
+
+                        </a>
+
+
+                        <a href="http://t.me/AmirrezaabbasiAI"
+                            target="_blank"
+                            rel="noopener noreferrer">
+
+                            <i class="fa-brands fa-telegram"></i>
+                            Telegram
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="container footer-content">
+
+            <div>
+
+                <span class="footer-name">
+                    Amirreza Abbasi
+                </span>
+
+                <span class="footer-role">
+                    Aspiring AI Engineer
+                </span>
+
+            </div>
+
+
+            <p>
+
+                © <span id="year"></span>
+                Built as part of my engineering journey.
+
+            </p>
+
+
+            <button class="back-to-top"
+                id="backToTop"
+                aria-label="Back to top">
+
+                <i class="fa-solid fa-arrow-up"></i>
+
+            </button>
+
         </div>
-      </div>
-      <form class="contact-form" id="contactForm" onsubmit="handleForm(event)">
-        <div class="form-row">
-          <label>Name<input type="text" placeholder="Your name" required></label>
-          <label>Email<input type="email" placeholder="you@company.com" required></label>
-        </div>
-        <label>Subject<input type="text" placeholder="How can I help?" required></label>
-        <label>Message<textarea rows="5" placeholder="Tell me about your project, role, or just say hi..." required></textarea></label>
-        <button type="submit" class="btn-primary large full"><i class="fa-regular fa-paper-plane"></i> Send message</button>
-        <p class="form-note"><i class="fa-solid fa-lock"></i> This demo form shows a success message. Connect it to Formspree or your email to make it live.</p>
-        <p id="formSuccess" class="form-success hidden"><i class="fa-solid fa-circle-check"></i> Message sent! I'll get back to you within 24 hours.</p>
-      </form>
-    </div>
-  </div>
-</section>
 
-<footer>
-  <div class="container footer-inner">
-    <p>© <span id="year"></span> <span data-edit="footerName"> Amir reza abbasi</span> — Designed & built with care. <span class="mono">Last updated: Oct 2026</span></p>
-    <div class="footer-links">
-<a href="https://github.com/amirrezaabbasiai-svg" target="_blank" rel="noopener noreferrer">
-  <i class="fa-brands fa-github"></i>
-</a>
+    </footer>
 
-<a href="https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
-  <i class="fa-brands fa-linkedin-in"></i>
-</a>
 
-<a href="http://t.me/AmirrezaabbasiAI" target="_blank" rel="noopener noreferrer">
-  <i class="fa-brands fa-telegram"></i>
-</a>
+    <script src="script.js"></script>
 
-    </div>
-  </div>
-</footer>
-
-<!-- Customize Modal -->
-<div id="customizeModal" class="modal hidden">
-  <div class="modal-overlay" onclick="closeCustomize()"></div>
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Personalize your site</h3>
-      <button onclick="closeCustomize()"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <p class="modal-desc">Fill in your details — the site updates instantly. You can also click any text directly on the page.</p>
-    <div class="modal-grid">
-      <label>Full Name<input id="inpName" placeholder="Amir reza abbasi"></label>
-      <label>Professional Title<input id="inpTitle" placeholder="AI engineer & machine vision"></label>
-      <label>Email<input id="inpEmail" placeholder="amirreza.abbasi.ai@gmail.com"></label>
-      <label>Location<input id="inpLocation" placeholder="Alboz , karaj"></label>
-      <label>LinkedIn URL<input id="inpLinkedin" placeholder="https://www.linkedin.com/in/amirreza-abasy-331a853a0?utm_source=share_via&utm_content=profile&utm_medium=member_android"></label>
-      <label>GitHub URL<input id="inpGithub" placeholder="https://github.com/amirrezaabbasiai-svg"></label>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-primary" onclick="applyQuickEdit()">Apply changes</button>
-      <button class="btn-ghost" onclick="closeCustomize()">Cancel</button>
-      <button class="btn-ghost danger" onclick="resetAll()"><i class="fa-solid fa-rotate-left"></i> Reset demo</button>
-    </div>
-    <div class="tips">
-      <strong><i class="fa-solid fa-lightbulb"></i> Tips:</strong>
-      <ul>
-        <li>Click <b>Customize</b> in the navbar or click any text when Edit Mode is on.</li>
-        <li>Upload your photo by clicking the camera icon on your profile card.</li>
-        <li>Press <b>Download CV</b> to save as PDF (Ctrl/Cmd + P → Save as PDF).</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
