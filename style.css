@@ -14,7 +14,38 @@ nav { display: flex; align-items: center; gap: 25px; } nav a { color: var(--mute
 nav .nav-cta { color: var(--accent); border: 1px solid rgba(184,243,107,.45); padding: 7px 13px; border-radius: 4px; }
 .menu-toggle { display: none; background: none; color: var(--text); border: 0; font-size: 1.4rem; }
 .section-wrap { width: min(1120px, 90%); margin: 0 auto; }
-.hero { min-height: 650px; display: grid; grid-template-columns: 1.3fr .7fr; align-items: center; gap: 8%; position: relative; padding-top: 76px; padding-bottom: 95px; }
+.hero {
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  padding-top: 76px;
+  padding-bottom: 95px;
+}
+
+.hero-copy {
+  width: 100%;
+  max-width: 850px;
+  text-align: center;
+}
+
+.availability {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-text {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions,
+.social-row {
+  justify-content: center;
+}
 .availability { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--line); color: #cbd2dc; padding: 7px 12px; border-radius: 100px; font-size: .72rem; margin-bottom: 32px; }
 .pulse, .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
 .eyebrow, .section-label, .section-kicker, .hero-index, .card-top, .quick-fact span, .visual-tag, .roadmap-no, .roadmap-state { font-family: var(--mono); letter-spacing: .1em; font-size: .68rem; }
